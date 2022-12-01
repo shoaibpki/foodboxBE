@@ -15,6 +15,7 @@ public class WebSecurityConfig {
 		"signin"
 	};
 	
+	
 	@Bean
 	PasswordEncoder passwordEncoder(String password) {
 		return new  BCryptPasswordEncoder();
@@ -33,6 +34,5 @@ public class WebSecurityConfig {
 		
 		return http.build();
 	}
-	
 
 }

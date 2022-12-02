@@ -5,5 +5,7 @@ import com.fd.model.UserModel;
 
 public interface UserService {
 	
-	Users saveUser(UserModel userModel);
+	public Users saveUser(UserModel userModel);
+
+	public void restpassword(String username, String newPassword);
 }

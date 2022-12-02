@@ -15,12 +15,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class categoryItemModel {
 
+	private long id;
 	private String itemName;
 	private String image;
 	private double price;
 	private boolean disabled;
 	private int availableQty;
-	private Category category;
-	private List<Users> users = new ArrayList<>();
+	private long categoryId;
+//	private List<Users> users = new ArrayList<>();
 
 }

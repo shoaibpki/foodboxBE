@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CatagoryModel {
+public class CategoryModel {
 
-	private Long id;
+	private long id;
 	private String catagoryName;
 	private boolean disabled;
 	List<CategoryItems> cItems;

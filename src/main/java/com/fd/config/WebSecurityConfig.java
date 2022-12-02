@@ -37,7 +37,7 @@ public class WebSecurityConfig {
 		.disable()
 		.authorizeHttpRequests()
 		.antMatchers(WHITE_LIST_URLS).permitAll()
-		.antMatchers("/resetpassword/**").authenticated();
+		.antMatchers("resetpassword/**").authenticated();
 		
 		
 		return http.build();

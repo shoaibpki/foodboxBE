@@ -13,10 +13,9 @@ public class UserModel {
 
 	private Long id;
 	
-	private String firstName;
-	private String lastName;
+	private String name;
 	private String email;
-	private boolean enabled=false;
+	private boolean disabled=false;
 	private String role;
 	private String password;
 

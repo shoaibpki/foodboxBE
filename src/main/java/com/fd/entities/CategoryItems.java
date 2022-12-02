@@ -7,37 +7,33 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-public class Users {
+public class CategoryItems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String name;
-	private String email;
+	private String itemName;
+	private String image;
+	private double price;
 	private boolean disabled;
-	private String role;
-	private String password;
+	private int availableQty;
 	
-	@ManyToMany
-	@JoinTable(
-			name= "cart",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name="item_id")
-			)
-	List<CategoryItems> cItems = new ArrayList<>();
+	@ManyToOne
+	private Category category;
+	
+	@ManyToMany(mappedBy = "cItems")
+	private List<Users> users = new ArrayList<>();
+	
 }

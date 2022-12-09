@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class CategoryModel {
 
 	private long id;
-	private String catagoryName;
+	private String categoryName;
 	private boolean disabled;
 	List<CategoryItems> cItems;
 

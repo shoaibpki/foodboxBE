@@ -1,11 +1,15 @@
 package com.fd.entities;
 
-import java.time.LocalDate;
+import java.time.Instant;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +27,14 @@ public class Cart {
 	
 	private double price;
 	private int quantity;
-	private LocalDate saleDate;
+	private String image;
+	private Instant saleDate;
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	private CategoryItems Item;
 	
+	@JsonIgnore
+	@ManyToOne
+	private Users user;
 }

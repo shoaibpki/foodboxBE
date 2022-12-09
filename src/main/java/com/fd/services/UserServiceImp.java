@@ -39,7 +39,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
 		// make password encrypted
 		String encPass = passwordEncoder.encode(userModel.getPassword());
 		userModel.setPassword(encPass);
-		
+
 		BeanUtils.copyProperties(userModel, user);
 		userRepository.save(user);
 		return user;
@@ -66,5 +66,18 @@ public class UserServiceImp implements UserService, UserDetailsService {
 				.orElseThrow(()-> new UsernameNotFoundException(email));
 		user.setPassword(passwordEncoder.encode(newPassword));
 		userRepository.save(user);
+	}
+
+	@Override
+	public Users getUserDetail(String email) {
+		return userRepository.findByEmail(email)
+				.orElseThrow(() -> new RuntimeException("User not found"));
+	}
+
+	@Override
+	public Users getUserByid(Long id) {
+		Users user = userRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("User Not Found"));
+		return user;
 	}
 }

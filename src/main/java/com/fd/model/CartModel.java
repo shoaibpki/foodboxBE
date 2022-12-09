@@ -1,6 +1,5 @@
 package com.fd.model;
 
-import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +13,10 @@ public class CartModel {
 	private long id;
 	private double price;
 	private int quantity;
-	private LocalDate saleDate;
+	private String image;
+	private String saleDate;
+	
+	private long userId;
+	private long itemId;
 
 }

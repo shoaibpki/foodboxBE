@@ -2,18 +2,30 @@ package com.fd.services;
 
 import java.util.List;
 
+import com.fd.entities.Cart;
 import com.fd.entities.Category;
 import com.fd.entities.CategoryItems;
+import com.fd.model.CartModel;
 import com.fd.model.CategoryModel;
 import com.fd.model.categoryItemModel;
 
 public interface CategoryService {
 	
-	Category saveCategory(CategoryModel categoryModel);
-	void deletCategory(Long id);
+	void saveCategory(CategoryModel categoryModel);
+	void disabledCategory(Long id);
 	
 	List<Category> allCategories();
-	Category getCategoryById(Long id);
+	List<CategoryItems> getCategoryById(Long id);
 	
-	CategoryItems saveCategoryItm(categoryItemModel categoryItemModel);
+	void saveCategoryItm(categoryItemModel categoryItemModel);
+	List<CategoryItems> allItemsForUser();
+	void disabledCItem(Long id);
+	CategoryItems getCategoryItemById(Long id);
+	List<CategoryItems> allItemsForAdmin();
+	
+	void addToCard(CartModel cartModel);
+	List<Cart> getCartItemsByUser(Long userId);
+	void DeleteItemFromCard(Long id);
+	void paymentConfirm(Long userId, String payMode);
+	
 }

@@ -1,11 +1,5 @@
 package com.fd.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.fd.entities.Category;
-import com.fd.entities.Users;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -8,4 +8,8 @@ public interface UserService {
 	public Users saveUser(UserModel userModel);
 
 	public void restpassword(String username, String newPassword);
+
+	public Users getUserDetail(String email);
+
+	public Users getUserByid(Long id);
 }

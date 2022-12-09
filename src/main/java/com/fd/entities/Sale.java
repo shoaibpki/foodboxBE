@@ -1,16 +1,15 @@
 package com.fd.entities;
 
-import java.util.ArrayList;
-import java.util.List;
 
+import java.time.Instant;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,27 +21,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class CategoryItems {
+public class Sale {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "saleId")
 	private long id;
 	
-	private String itemName;
-	private String image;
 	private double price;
-	private boolean disabled;
-	private int availableQty;
+	private int quantity;
+	private String payMode;
+	private Instant saleDate;
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	private CategoryItems Items;
 	
 	@JsonIgnore
-	@ManyToOne (fetch = FetchType.LAZY)
-	@JoinColumn(name = "category_id")
-	private Category category;
-	
-	@OneToMany 
-	@JoinColumn(name = "item_id")
-	private List<Cart> CartItems = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "Items")
-	List<Sale> saleItems = new ArrayList<>();
+	@ManyToOne
+	private Users user;
 }

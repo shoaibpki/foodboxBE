@@ -7,9 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,11 +31,9 @@ public class Users {
 	private String role;
 	private String password;
 	
-	@ManyToMany
-	@JoinTable(
-			name= "cart",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name="item_id")
-			)
-	List<CategoryItems> cItems = new ArrayList<>();
+	@OneToMany(mappedBy = "user")
+	List<Cart> cartItems = new ArrayList<>();
+
+	@OneToMany(mappedBy = "user")
+	List<Sale> saleItems = new ArrayList<>();
 }

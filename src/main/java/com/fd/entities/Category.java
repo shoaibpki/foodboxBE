@@ -26,9 +26,9 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	private String catagoryName;
+	private String categoryName;
 	private boolean disabled;
 	
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-	List<CategoryItems> cItems = new ArrayList<>();
+	List<CategoryItems> cItem = new ArrayList<>();
 }

@@ -2,8 +2,6 @@ package com.fd.controller;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,6 +54,13 @@ public class CategoryController {
 		return new ResponseEntity<List<CategoryItems>>(listItems, HttpStatus.OK);
 	}
 	
+//	update cart item
+	@PutMapping("cart/addtocart")
+	public ResponseEntity<String> updateCart(@RequestBody CartModel cardModel){
+		categoryService.paymentConfirm(cardModel);
+		return new  ResponseEntity<String>("Update Cart item!",HttpStatus.OK);
+	}
+	
 //	get category item by id
 	@GetMapping("categoryitem/{id}")
 	public ResponseEntity<CategoryItems> getCategoryItemById(@PathVariable Long id){
@@ -73,14 +79,6 @@ public class CategoryController {
 	@DeleteMapping("categoryitem/delete/{id}")
 	public void DeleteItemFromCard(@PathVariable Long id){
 		categoryService.DeleteItemFromCard(id);
-	}
-	
-//	on payment confirmation data move from cart to sale table
-	@PostMapping("paymentconfirm/{uid}/{mode}")
-	public ResponseEntity<String> paymentConfirm(@PathVariable(name = "uid") Long userId, @PathVariable(name = "mode") String payMode){
-		categoryService.paymentConfirm(userId, payMode);
-		
-		return new ResponseEntity<String>("Thank you for Choosing FooxBox, keep in touch!", HttpStatus.OK);
 	}
 	
 //	get items from the cart by user

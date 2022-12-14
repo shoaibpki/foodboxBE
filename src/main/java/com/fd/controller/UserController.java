@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fd.entities.Category;
 import com.fd.entities.CategoryItems;
 import com.fd.entities.Users;
 import com.fd.model.CategoryModel;
@@ -83,12 +85,19 @@ public class UserController {
 		return new ResponseEntity<String>("Save Category successfully!", HttpStatus.OK);
 	}
 	
-//	add and update category items
+//	add category items
 	@PostMapping("manage/product")
 	public ResponseEntity<String> addCategoryItem(@RequestBody categoryItemModel categoryItemModel){
 		categoryService.saveCategoryItm(categoryItemModel);
 		
 		return new ResponseEntity<String>("Save Category Item successfully", HttpStatus.OK);
+	}
+	
+//	update categoryItems
+	@PutMapping("manage/product")
+	public ResponseEntity<String> updateCategoryItm(@RequestBody categoryItemModel categoryItemModel){
+		categoryService.updateCategoryItm(categoryItemModel);
+		return new ResponseEntity<String>("update Category Item successfully", HttpStatus.OK);
 	}
 
 //	for admin category items
@@ -98,10 +107,12 @@ public class UserController {
 		
 		return new ResponseEntity<List<CategoryItems>>(listItems, HttpStatus.OK);
 	}
-
-//	disabled category item by id
-	@GetMapping("manage/product/{id}")
-	public void disabledCItemById(@PathVariable Long id){
-		categoryService.disabledCItem(id);
+	
+//	get all categories for admin
+	@GetMapping("manage/product/categories")
+	public ResponseEntity<List<Category>> allCategoriesAdmin(){
+		List<Category> categories = categoryService.allCategoriesAdmin();
+		return new ResponseEntity<List<Category>>(categories,HttpStatus.OK);
 	}
+
 }

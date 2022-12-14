@@ -26,6 +26,10 @@ public interface CategoryService {
 	void addToCard(CartModel cartModel);
 	List<Cart> getCartItemsByUser(Long userId);
 	void DeleteItemFromCard(Long id);
-	void paymentConfirm(Long userId, String payMode);
+	void paymentConfirm(CartModel cardModel);
+//	void updateCart(CartModel cardModel);
+	List<Category> allCategoriesAdmin();
+	
+	void updateCategoryItm(categoryItemModel categoryItemModel);
 	
 }

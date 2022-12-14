@@ -10,6 +10,9 @@ public interface categoryItemsRepository extends JpaRepository<CategoryItems, Lo
 
 	List<CategoryItems> findByDisabled(boolean disable);
 	
-	List<CategoryItems> findBycategoryId(Long cid);
+	List<CategoryItems> findBycategoryIdAndDisabled(Long cid, boolean dis);
+	
+//	Category findBycategoryId(Long id);
 
+	
 }

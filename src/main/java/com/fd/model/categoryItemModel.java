@@ -15,6 +15,7 @@ public class categoryItemModel {
 	private double price;
 	private boolean disabled;
 	private int availableQty;
+	private String itemDescription;
 	private long categoryId;
 //	private List<Users> users = new ArrayList<>();
 

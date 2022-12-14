@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,14 +28,18 @@ public class CategoryItems {
 	private long id;
 	
 	private String itemName;
+	private String itemDescription;
 	private String image;
 	private double price;
 	private boolean disabled;
 	private int availableQty;
 	
 	@JsonIgnore
-	@ManyToOne (fetch = FetchType.LAZY)
-	@JoinColumn(name = "category_id")
+	@ManyToOne
+//	@JoinColumns({
+//		@JoinColumn(name = "category_id", referencedColumnName = "id"),
+//		@JoinColumn(name = "category_name", referencedColumnName = "categoryName")
+//	})
 	private Category category;
 	
 	@OneToMany 

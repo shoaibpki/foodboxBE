@@ -67,8 +67,14 @@ public class CategoryServiceImp implements CategoryService {
 	}
 
 	@Override
+	public List<Category> allCategoriesAdmin() {
+		List<Category> lCategory = categoryRepository.findAll();
+		return lCategory;
+	}
+
+	@Override
 	public List<CategoryItems> getCategoryById(Long id) {
-		List<CategoryItems> ci = categoryItemsRepository.findBycategoryId(id);
+		List<CategoryItems> ci = categoryItemsRepository.findBycategoryIdAndDisabled(id, false);
 		return ci;
 	}
 
@@ -80,6 +86,18 @@ public class CategoryServiceImp implements CategoryService {
 		CategoryItems categoryItems = new CategoryItems();
 		BeanUtils.copyProperties(categoryItemModel, categoryItems);
 		categoryItems.setCategory(category);
+		categoryItemsRepository.save(categoryItems);
+		
+	}
+
+	@Override
+	public void updateCategoryItm(categoryItemModel categoryItemModel) {
+		CategoryItems categoryItems = categoryItemsRepository.findById(categoryItemModel.getId())
+					.orElseThrow(() -> new RuntimeException("category not found!"));
+		
+		BeanUtils.copyProperties(categoryItemModel, categoryItems);
+		
+//		categoryItems.setCategory(category);
 		categoryItemsRepository.save(categoryItems);
 		
 	}
@@ -148,29 +166,45 @@ public class CategoryServiceImp implements CategoryService {
 		cartRepository.deleteById(id);
 	}
 
+//	@Override
+//	public void paymentConfirm(Long userId) {
+//		Users user = userRepository.findById(userId)
+//				.orElseThrow(() -> new RuntimeException("User not Found!"));
+//		List<Cart> cart = cartRepository.findByuserId(userId);
+//		cart.forEach(c -> {
+//			
+////			update sale after payment confirmation
+//			Sale sale = new Sale();
+//
+////			update category_item available Quantity after sale
+//			int qty = c.getItem().getAvailableQty();
+//			c.getItem().setAvailableQty(qty - c.getQuantity());
+//			sale.setItems(c.getItem());
+//
+//			sale.setPrice(c.getPrice());
+//			sale.setQuantity(c.getQuantity());
+//			sale.setUser(user);
+//			sale.setSaleDate(c.getSaleDate());
+//			saleRepository.save(sale);
+//			
+//		});
+//		cartRepository.deleteAll(cart);
+//	}
+
 	@Override
-	public void paymentConfirm(Long userId, String payMode) {
-		Users user = userRepository.findById(userId)
-				.orElseThrow(() -> new RuntimeException("User not Found!"));
-		List<Cart> cart = user.getCartItems();
-		cart.forEach(c -> {
-			
-//			update sale after payment confirmation
-			Sale sale = new Sale();
+	public void paymentConfirm(CartModel cartModel) {
+		Cart cart = cartRepository.findById(cartModel.getId())
+				.orElseThrow(()-> new RuntimeException("Cart Item not Found!"));
+		BeanUtils.copyProperties(cartModel, cart);
+		int qty = cart.getItem().getAvailableQty();
+		cart.getItem().setAvailableQty(qty - cart.getQuantity());
+		cartRepository.save(cart);
 
-//			update item Quantity after sale
-			int qty = c.getItem().getAvailableQty();
-			c.getItem().setAvailableQty(qty - c.getQuantity());
-			sale.setItems(c.getItem());
-
-			sale.setPrice(c.getPrice());
-			sale.setQuantity(c.getQuantity());
-			sale.setUser(user);
-			sale.setSaleDate(c.getSaleDate());
-			sale.setPayMode(payMode);
-			saleRepository.save(sale);
-			
-		});
-		cartRepository.deleteAll(cart);
+		Sale sale = new Sale();
+		BeanUtils.copyProperties(cart, sale);
+		sale.setId(0);
+		sale.setItems(cart.getItem());
+		saleRepository.save(sale);
+		cartRepository.delete(cart);
 	}
 }

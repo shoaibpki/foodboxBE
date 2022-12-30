@@ -2,7 +2,6 @@ package com.fd.entities;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,10 +35,6 @@ public class CategoryItems {
 	
 	@JsonIgnore
 	@ManyToOne
-//	@JoinColumns({
-//		@JoinColumn(name = "category_id", referencedColumnName = "id"),
-//		@JoinColumn(name = "category_name", referencedColumnName = "categoryName")
-//	})
 	private Category category;
 	
 	@OneToMany 

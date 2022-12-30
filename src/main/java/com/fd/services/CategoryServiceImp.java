@@ -2,6 +2,7 @@ package com.fd.services;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -94,10 +95,10 @@ public class CategoryServiceImp implements CategoryService {
 	public void updateCategoryItm(categoryItemModel categoryItemModel) {
 		CategoryItems categoryItems = categoryItemsRepository.findById(categoryItemModel.getId())
 					.orElseThrow(() -> new RuntimeException("category not found!"));
-		
+		Category category = categoryRepository.findById(categoryItemModel.getCategoryId()).get();
 		BeanUtils.copyProperties(categoryItemModel, categoryItems);
 		
-//		categoryItems.setCategory(category);
+		categoryItems.setCategory(category);
 		categoryItemsRepository.save(categoryItems);
 		
 	}
@@ -152,7 +153,7 @@ public class CategoryServiceImp implements CategoryService {
 		cart.setItem(citem);
 		cart.setUser(user);
 		
-		cartRepository.save(cart);
+		cartRepository.saveAndFlush(cart);
 	}
 
 	@Override

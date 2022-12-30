@@ -31,7 +31,7 @@ public class Cart {
 	private Instant saleDate;
 
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private CategoryItems Item;
 	
 	@JsonIgnore

@@ -3,7 +3,6 @@ package com.fd.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,7 +24,6 @@ import com.fd.entities.Users;
 import com.fd.model.CategoryModel;
 import com.fd.model.UserModel;
 import com.fd.model.categoryItemModel;
-import com.fd.repositories.UserRepository;
 import com.fd.services.CategoryService;
 import com.fd.services.UserService;
 

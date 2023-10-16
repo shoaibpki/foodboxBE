@@ -2,6 +2,7 @@ package com.fd.services;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -129,7 +130,7 @@ public class CategoryServiceImp implements CategoryService {
 		List<CategoryItems> lCategoryItems = 
 				categoryItemsRepository.findByDisabled(false);
 		List<CategoryItems> filterItems = 
-				lCategoryItems.stream().filter((data) -> data.getAvailableQty() > 0).toList();
+				lCategoryItems.stream().filter((data) -> data.getAvailableQty() > 0).collect(Collectors.toList());
 		
 		return filterItems;
 	}
